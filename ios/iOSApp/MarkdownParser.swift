@@ -25,7 +25,7 @@ enum MarkdownParser {
     /// - Duplicate titles are made unique by appending a number
     static func parseMarkdown(_ text: String) -> [Checklist] {
         var checklists: [Checklist] = []
-        var currentChecklist: Checklist? = nil
+        var currentChecklist: Checklist?
         var usedNames: Set<String> = []
 
         func uniqueName(for name: String) -> String {

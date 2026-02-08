@@ -12,6 +12,7 @@ struct ContentView: View {
     @State private var newListName: String = ""
     @State private var importData: ImportData?
     @State private var showingExportConfirmation = false
+    @State private var showingPromptCopied = false
     @State private var showingImportError = false
     @State private var importErrorMessage = ""
     @State private var isDeleteMode = false
@@ -118,6 +119,13 @@ struct ContentView: View {
                     dismissButton: .default(Text("OK")),
                 )
             }
+            .alert(isPresented: $showingPromptCopied) {
+                Alert(
+                    title: Text("Prompt Copied"),
+                    message: Text("Paste it into ChatGPT, Claude, or any LLM to create your checklists."),
+                    dismissButton: .default(Text("OK")),
+                )
+            }
         }
     }
 
@@ -148,6 +156,9 @@ struct ContentView: View {
                     Label("Export to Clipboard", systemImage: "square.and.arrow.up")
                 }
                 .disabled(store.lists.isEmpty)
+                Button(action: copyLLMPrompt) {
+                    Label("Copy LLM Prompt", systemImage: "sparkles")
+                }
                 Divider()
                 Button(action: {
                     appearanceModeRaw = appearanceMode.next().rawValue
@@ -171,6 +182,40 @@ struct ContentView: View {
         store.addList(name: newListName)
         newListName = ""
         showingNewListSheet = false
+    }
+
+    private func copyLLMPrompt() {
+        var prompt = """
+        Help me create checklists. Keep it simple and conversational. \
+        Ask one question at a time — never give me a list of questions. \
+        Start by asking what I need a checklist for, nothing else.
+
+        After I answer, suggest items and ask if I want to add, remove, or \
+        change anything. Keep going until I say I'm done.
+
+        Focus on things that are easy to forget or worth double-checking. \
+        Skip obvious routine stuff everyone does without thinking \
+        (like "wake up" or "eat breakfast"). Keep each item short — \
+        a few words max, no parenthetical notes or explanations.
+
+        When I'm done, give me the final result in this exact markdown format \
+        (I'll copy it into my app):
+
+        # Checklist Name
+
+        - Item one
+        - Item two
+
+        No checkboxes. Just # headings and - bullet items.
+        """
+
+        if !store.lists.isEmpty {
+            let markdown = MarkdownParser.formatMarkdown(store.lists)
+            prompt += "\n\nHere are my current checklists:\n\n" + markdown
+        }
+
+        UIPasteboard.general.string = prompt
+        showingPromptCopied = true
     }
 
     private func exportToClipboard() {

@@ -1,0 +1,9 @@
+/* GetChecklistItemsIntent */
+"Get Checklist Items" = "Näytä listan kohteet";
+"Shows the items on a checklist." = "Näyttää listan kohteet.";
+"Checklist" = "Lista";
+
+/* Dialog responses */
+"I couldn't find that checklist." = "En löytänyt tuota listaa.";
+"Everything is checked off on %@." = "Kaikki on merkitty listalla %@.";
+"%@ has %lld items: %@" = "Listalla %1$@ on %2$lld asiaa: %3$@";

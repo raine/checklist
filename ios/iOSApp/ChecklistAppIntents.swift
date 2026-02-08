@@ -67,6 +67,9 @@ struct ChecklistShortcuts: AppShortcutsProvider {
             phrases: [
                 "What's on my \(\.$checklist) in \(.applicationName)",
                 "Show my \(\.$checklist) in \(.applicationName)",
+                "What items are on \(\.$checklist) in \(.applicationName)",
+                "Read \(\.$checklist) in \(.applicationName)",
+                "Check \(\.$checklist) in \(.applicationName)",
             ],
             shortTitle: "Get Checklist Items",
             systemImageName: "checklist"

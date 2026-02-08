@@ -1,0 +1,6 @@
+/* Siri-fraasit GetChecklistItemsIntent-toiminnolle */
+"What's on my ${checklist} in ${applicationName}" = "Mitä ${checklist} sisältää äpissä ${applicationName}";
+"Show my ${checklist} in ${applicationName}" = "Näytä ${checklist} äpissä ${applicationName}";
+"What items are on ${checklist} in ${applicationName}" = "Mitä on listalla ${checklist} äpissä ${applicationName}";
+"Read ${checklist} in ${applicationName}" = "Lue ${checklist} äpissä ${applicationName}";
+"Check ${checklist} in ${applicationName}" = "Tarkista ${checklist} äpissä ${applicationName}";

@@ -1,3 +1,4 @@
+import AppIntents
 import SwiftUI
 
 @main
@@ -12,6 +13,9 @@ struct ChecklistApp: App {
         WindowGroup {
             ContentView()
                 .preferredColorScheme(appearanceMode.colorScheme)
+                .task {
+                    ChecklistShortcuts.updateAppShortcutParameters()
+                }
         }
     }
 }

@@ -1,13 +1,13 @@
 import Combine
 import Foundation
 
-struct Field: Identifiable, Codable, Hashable {
+struct Field: Identifiable, Codable, Hashable, Sendable {
     var id: UUID = .init()
     var name: String
     var isChecked: Bool = false
 }
 
-struct Checklist: Identifiable, Codable, Hashable {
+struct Checklist: Identifiable, Codable, Hashable, Sendable {
     var id: UUID = .init()
     var name: String
     var fields: [Field] = []
@@ -18,11 +18,15 @@ final class ChecklistStore: ObservableObject {
         didSet { save() }
     }
 
+    private static let persistenceURL: URL = {
+        let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        return dir.appendingPathComponent("checklists.json")
+    }()
+
     private let fileURL: URL
 
-    init(filename: String = "checklists.json") {
-        let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        fileURL = dir.appendingPathComponent(filename)
+    init() {
+        fileURL = Self.persistenceURL
         load()
     }
 
@@ -46,22 +50,31 @@ final class ChecklistStore: ObservableObject {
         lists.removeAll { $0.id == id }
     }
 
+    // MARK: - Static Access for App Intents
+
+    static func loadChecklists() -> [Checklist] {
+        readLists(from: persistenceURL)
+    }
+
     // MARK: - Persistence
 
-    func load() {
-        do {
-            let data = try Data(contentsOf: fileURL)
-            let decoded = try JSONDecoder().decode([Checklist].self, from: data)
-            lists = decoded
-        } catch {
-            // Migration path: try to read legacy single-list file format ([Field])
-            let legacyURL = fileURL.deletingLastPathComponent().appendingPathComponent("checklist.json")
-            if let legacyData = try? Data(contentsOf: legacyURL), let legacyFields = try? JSONDecoder().decode([Field].self, from: legacyData) {
-                lists = [Checklist(name: "My Checklist", fields: legacyFields)]
-            } else {
-                lists = []
-            }
+    private static func readLists(from fileURL: URL) -> [Checklist] {
+        if let data = try? Data(contentsOf: fileURL),
+           let decoded = try? JSONDecoder().decode([Checklist].self, from: data)
+        {
+            return decoded
         }
+        let legacyURL = fileURL.deletingLastPathComponent().appendingPathComponent("checklist.json")
+        if let legacyData = try? Data(contentsOf: legacyURL),
+           let legacyFields = try? JSONDecoder().decode([Field].self, from: legacyData)
+        {
+            return [Checklist(name: "My Checklist", fields: legacyFields)]
+        }
+        return []
+    }
+
+    func load() {
+        lists = Self.readLists(from: fileURL)
     }
 
     func save() {

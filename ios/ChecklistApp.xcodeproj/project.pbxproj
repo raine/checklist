@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		0EC6E0F391339B410D7231BA /* ChecklistCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93228C90CDFB9AE132DD02BE /* ChecklistCardView.swift */; };
-		668211C7ACE950324664E3E5 /* MarkdownParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E53F5C532E548CD1C4AC418 /* MarkdownParser.swift */; };
-		BEBC5FDE2D7B21BACC62C5C6 /* ImportPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C334DE4431AF6AA27EB2D4B5 /* ImportPreviewView.swift */; };
 		1A2B3C4D5E6F000000000020 /* ChecklistApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A2B3C4D5E6F000000000010 /* ChecklistApp.swift */; };
 		1A2B3C4D5E6F000000000021 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A2B3C4D5E6F000000000011 /* ContentView.swift */; };
 		1A2B3C4D5E6F000000000022 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A2B3C4D5E6F000000000013 /* Assets.xcassets */; };
@@ -17,9 +15,13 @@
 		1A2B3C4D5E6F000000000024 /* ChecklistStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A2B3C4D5E6F000000000014 /* ChecklistStore.swift */; };
 		1A2B3C4D5E6F000000000025 /* ChecklistDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A2B3C4D5E6F000000000019 /* ChecklistDetailView.swift */; };
 		1A2B3C4D5E6F000000000026 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A2B3C4D5E6F00000000001A /* Theme.swift */; };
+		4DBB48A544BA7AD5CCEA2CE4 /* ChecklistAppIntents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 175031E012D034D4FAF4ED8A /* ChecklistAppIntents.swift */; };
+		668211C7ACE950324664E3E5 /* MarkdownParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E53F5C532E548CD1C4AC418 /* MarkdownParser.swift */; };
+		BEBC5FDE2D7B21BACC62C5C6 /* ImportPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C334DE4431AF6AA27EB2D4B5 /* ImportPreviewView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		175031E012D034D4FAF4ED8A /* ChecklistAppIntents.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = iOSApp/ChecklistAppIntents.swift; sourceTree = "<group>"; };
 		1A2B3C4D5E6F000000000007 /* ChecklistApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChecklistApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A2B3C4D5E6F000000000010 /* ChecklistApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSApp/ChecklistApp.swift; sourceTree = "<group>"; };
 		1A2B3C4D5E6F000000000011 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSApp/ContentView.swift; sourceTree = "<group>"; };
@@ -29,11 +31,11 @@
 		1A2B3C4D5E6F000000000015 /* ChecklistCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/ChecklistCore/ChecklistCore.swift; sourceTree = "<group>"; };
 		1A2B3C4D5E6F000000000019 /* ChecklistDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSApp/ChecklistDetailView.swift; sourceTree = "<group>"; };
 		1A2B3C4D5E6F00000000001A /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSApp/Theme.swift; sourceTree = "<group>"; };
-		93228C90CDFB9AE132DD02BE /* ChecklistCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSApp/ChecklistCardView.swift; sourceTree = "<group>"; };
 		4E53F5C532E548CD1C4AC418 /* MarkdownParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSApp/MarkdownParser.swift; sourceTree = "<group>"; };
-		C334DE4431AF6AA27EB2D4B5 /* ImportPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSApp/ImportPreviewView.swift; sourceTree = "<group>"; };
+		93228C90CDFB9AE132DD02BE /* ChecklistCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSApp/ChecklistCardView.swift; sourceTree = "<group>"; };
 		AA0000000000000000000001 /* Base.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config/Base.xcconfig; sourceTree = "<group>"; };
 		AA0000000000000000000002 /* Local.xcconfig.example */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config/Local.xcconfig.example; sourceTree = "<group>"; };
+		C334DE4431AF6AA27EB2D4B5 /* ImportPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSApp/ImportPreviewView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,15 +59,6 @@
 			);
 			sourceTree = "<group>";
 		};
-		AA0000000000000000000003 /* Config */ = {
-			isa = PBXGroup;
-			children = (
-				AA0000000000000000000001 /* Base.xcconfig */,
-				AA0000000000000000000002 /* Local.xcconfig.example */,
-			);
-			name = Config;
-			sourceTree = "<group>";
-		};
 		1A2B3C4D5E6F000000000008 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -87,6 +80,7 @@
 				93228C90CDFB9AE132DD02BE /* ChecklistCardView.swift */,
 				4E53F5C532E548CD1C4AC418 /* MarkdownParser.swift */,
 				C334DE4431AF6AA27EB2D4B5 /* ImportPreviewView.swift */,
+				175031E012D034D4FAF4ED8A /* ChecklistAppIntents.swift */,
 			);
 			name = iOSApp;
 			sourceTree = "<group>";
@@ -97,6 +91,15 @@
 				1A2B3C4D5E6F000000000015 /* ChecklistCore.swift */,
 			);
 			name = Shared;
+			sourceTree = "<group>";
+		};
+		AA0000000000000000000003 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				AA0000000000000000000001 /* Base.xcconfig */,
+				AA0000000000000000000002 /* Local.xcconfig.example */,
+			);
+			name = Config;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -176,6 +179,7 @@
 				0EC6E0F391339B410D7231BA /* ChecklistCardView.swift in Sources */,
 				668211C7ACE950324664E3E5 /* MarkdownParser.swift in Sources */,
 				BEBC5FDE2D7B21BACC62C5C6 /* ImportPreviewView.swift in Sources */,
+				4DBB48A544BA7AD5CCEA2CE4 /* ChecklistAppIntents.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

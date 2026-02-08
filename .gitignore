@@ -8,6 +8,9 @@ DerivedData/
 !ChecklistApp.xcodeproj
 xcuserdata/
 
+# Local signing config
+ios/Config/Local.xcconfig
+
 # macOS
 .DS_Store
 

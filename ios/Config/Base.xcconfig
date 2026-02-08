@@ -1,0 +1,6 @@
+// Default signing config — override in Local.xcconfig
+DEVELOPMENT_TEAM =
+CODE_SIGN_STYLE = Automatic
+
+// Optional local overrides (gitignored)
+#include? "Local.xcconfig"

@@ -15,11 +15,16 @@ struct ContentView: View {
     @State private var showingImportError = false
     @State private var importErrorMessage = ""
     @State private var isDeleteMode = false
+    @AppStorage("appearanceMode") private var appearanceModeRaw: Int = AppearanceMode.system.rawValue
+
+    private var appearanceMode: AppearanceMode {
+        AppearanceMode(rawValue: appearanceModeRaw) ?? .system
+    }
 
     var body: some View {
         NavigationView {
             ZStack {
-                AppTheme.backgroundGradient
+                AdaptiveBackground()
                     .ignoresSafeArea()
 
                 GeometryReader { proxy in
@@ -132,7 +137,7 @@ struct ContentView: View {
         ToolbarItem(placement: .principal) {
             Text("My Checklists")
                 .font(.system(size: 22, weight: .regular))
-                .foregroundColor(.black)
+                .foregroundColor(AppTheme.navItemColor)
         }
         ToolbarItem(placement: .navigationBarTrailing) {
             Menu {
@@ -143,15 +148,21 @@ struct ContentView: View {
                     Label("Export to Clipboard", systemImage: "square.and.arrow.up")
                 }
                 .disabled(store.lists.isEmpty)
+                Divider()
+                Button(action: {
+                    appearanceModeRaw = appearanceMode.next().rawValue
+                }) {
+                    Label("Appearance: \(appearanceMode.label)", systemImage: appearanceMode.iconName)
+                }
             } label: {
                 Image(systemName: "ellipsis.circle")
-                    .foregroundColor(.black)
+                    .foregroundColor(AppTheme.navItemColor)
             }
         }
         ToolbarItem(placement: .navigationBarTrailing) {
             Button(action: { showingNewListSheet = true }) {
                 Image(systemName: "plus")
-                    .foregroundColor(.black)
+                    .foregroundColor(AppTheme.navItemColor)
             }
         }
     }

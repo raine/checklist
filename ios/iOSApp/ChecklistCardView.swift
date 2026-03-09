@@ -39,6 +39,6 @@ struct ChecklistCardView: View {
         .frame(width: itemSize, height: itemSize, alignment: .topLeading)
         .background(AppTheme.tileBackground)
         .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
-        .shadow(color: Color.black.opacity(0.08), radius: 6, x: 0, y: 3)
+        .shadow(color: Color.primary.opacity(0.08), radius: 6, x: 0, y: 3)
     }
 }

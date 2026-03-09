@@ -1,9 +1,49 @@
 import SwiftUI
 import UIKit
 
+// MARK: - Appearance Mode
+
+enum AppearanceMode: Int {
+    case system = 0
+    case light = 1
+    case dark = 2
+
+    var colorScheme: ColorScheme? {
+        switch self {
+        case .system: nil
+        case .light: .light
+        case .dark: .dark
+        }
+    }
+
+    var label: String {
+        switch self {
+        case .system: "System"
+        case .light: "Light"
+        case .dark: "Dark"
+        }
+    }
+
+    var iconName: String {
+        switch self {
+        case .system: "circle.lefthalf.filled"
+        case .light: "sun.max.fill"
+        case .dark: "moon.fill"
+        }
+    }
+
+    func next() -> AppearanceMode {
+        switch self {
+        case .system: .light
+        case .light: .dark
+        case .dark: .system
+        }
+    }
+}
+
 // Simple theme and helpers for styling
 enum AppTheme {
-    // Background gradient: bottom -> top
+    // Light palette
     static let backgroundBottom = Color(hex: 0xD7ECE2)
     static let backgroundTop = Color(hex: 0xD3EDDB)
     static let backgroundGradient = LinearGradient(
@@ -11,10 +51,32 @@ enum AppTheme {
         startPoint: .bottom,
         endPoint: .top,
     )
-    static let tileBackground = Color.white
-    static let tileText = Color.black
-    static let navItemColor = Color.black
-    static var navItemUIColor: UIColor { UIColor(navItemColor) }
+
+    // Dark palette — darker at top, lighter at bottom
+    static let darkBackgroundBottom = Color(hex: 0x2C2C2E)
+    static let darkBackgroundTop = Color(hex: 0x1A1A1C)
+    static let darkBackgroundGradient = LinearGradient(
+        gradient: Gradient(colors: [darkBackgroundBottom, darkBackgroundTop]),
+        startPoint: .bottom,
+        endPoint: .top,
+    )
+
+    static let tileBackground = Color(.secondarySystemBackground)
+    static let tileText = Color(.label)
+    static let navItemColor = Color(.label)
+    static var navItemUIColor: UIColor { UIColor.label }
+}
+
+struct AdaptiveBackground: View {
+    @Environment(\.colorScheme) var colorScheme
+
+    var body: some View {
+        if colorScheme == .dark {
+            AppTheme.darkBackgroundGradient
+        } else {
+            AppTheme.backgroundGradient
+        }
+    }
 }
 
 extension Color {
@@ -35,7 +97,7 @@ struct TileModifier: ViewModifier {
             .background(AppTheme.tileBackground)
             .foregroundColor(AppTheme.tileText)
             .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
-            .shadow(color: Color.black.opacity(0.08), radius: 6, x: 0, y: 3)
+            .shadow(color: Color.primary.opacity(0.08), radius: 6, x: 0, y: 3)
     }
 }
 

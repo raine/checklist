@@ -52,11 +52,11 @@ struct ChecklistDetailView: View {
                             TextField("Name", text: list.name)
                                 .font(.system(size: 22, weight: .regular))
                                 .multilineTextAlignment(.center)
-                                .foregroundColor(.black)
+                                .foregroundColor(AppTheme.navItemColor)
                         } else {
                             Text(list.wrappedValue.name)
                                 .font(.system(size: 22, weight: .regular))
-                                .foregroundColor(.black)
+                                .foregroundColor(AppTheme.navItemColor)
                         }
                     }
                     ToolbarItem(placement: .navigationBarTrailing) {
@@ -75,7 +75,7 @@ struct ChecklistDetailView: View {
                             }
                         }) {
                             Image(systemName: isEditing ? "checkmark" : "pencil")
-                                .foregroundColor(.black)
+                                .foregroundColor(AppTheme.navItemColor)
                                 .imageScale(.medium)
                                 .accessibilityLabel(isEditing ? "Done" : "Edit")
                         }
@@ -147,7 +147,7 @@ private struct EditingFieldRow: View {
         .listRowBackground(
             RoundedRectangle(cornerRadius: 12, style: .continuous)
                 .fill(AppTheme.tileBackground)
-                .shadow(color: Color.black.opacity(0.08), radius: 6, x: 0, y: 3),
+                .shadow(color: Color.primary.opacity(0.08), radius: 6, x: 0, y: 3),
         )
         .listRowSeparatorHiddenCompat()
         .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
@@ -212,7 +212,7 @@ private struct ChecklistListView: View {
 
     var body: some View {
         ZStack {
-            AppTheme.backgroundGradient
+            AdaptiveBackground()
                 .ignoresSafeArea()
 
             List {

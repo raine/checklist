@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -20,7 +20,32 @@
 		A1F100000000000000000004 /* AppShortcuts.strings in Resources */ = {isa = PBXBuildFile; fileRef = A1F100000000000000000003 /* AppShortcuts.strings */; };
 		A1F100000000000000000007 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A1F100000000000000000006 /* Localizable.strings */; };
 		BEBC5FDE2D7B21BACC62C5C6 /* iOSApp/ImportPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C334DE4431AF6AA27EB2D4B5 /* iOSApp/ImportPreviewView.swift */; };
+		F7DD11872F38D9B2007C099D /* ChecklistWatch Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = F7DD117D2F38D9B2007C099D /* ChecklistWatch Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		F7DD11852F38D9B2007C099D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1A2B3C4D5E6F000000000001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F7DD117C2F38D9B2007C099D;
+			remoteInfo = "ChecklistWatch Watch App";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		F7EB2D582F38C7E0006FA9F7 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				F7DD11872F38D9B2007C099D /* ChecklistWatch Watch App.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		175031E012D034D4FAF4ED8A /* iOSApp/ChecklistAppIntents.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = iOSApp/ChecklistAppIntents.swift; sourceTree = "<group>"; };
@@ -41,10 +66,22 @@
 		AA0000000000000000000001 /* Config/Base.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config/Base.xcconfig; sourceTree = "<group>"; };
 		AA0000000000000000000002 /* Config/Local.xcconfig.example */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config/Local.xcconfig.example; sourceTree = "<group>"; };
 		C334DE4431AF6AA27EB2D4B5 /* iOSApp/ImportPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSApp/ImportPreviewView.swift; sourceTree = "<group>"; };
+		F7DD117D2F38D9B2007C099D /* ChecklistWatch Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ChecklistWatch Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		F7EB2D4E2F38C7DF006FA9F7 /* ChecklistWatch Watch App */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "ChecklistWatch Watch App"; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		1A2B3C4D5E6F000000000004 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F7DD117A2F38D9B2007C099D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -60,6 +97,7 @@
 				AA0000000000000000000003 /* Config */,
 				1A2B3C4D5E6F000000000016 /* iOSApp */,
 				1A2B3C4D5E6F000000000017 /* Shared */,
+				F7EB2D4E2F38C7DF006FA9F7 /* ChecklistWatch Watch App */,
 				1A2B3C4D5E6F000000000008 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -68,6 +106,7 @@
 			isa = PBXGroup;
 			children = (
 				1A2B3C4D5E6F000000000007 /* ChecklistApp.app */,
+				F7DD117D2F38D9B2007C099D /* ChecklistWatch Watch App.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -119,14 +158,35 @@
 				1A2B3C4D5E6F000000000003 /* Sources */,
 				1A2B3C4D5E6F000000000004 /* Frameworks */,
 				1A2B3C4D5E6F000000000005 /* Resources */,
+				F7EB2D582F38C7E0006FA9F7 /* Embed Watch Content */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F7DD11862F38D9B2007C099D /* PBXTargetDependency */,
+			);
+			name = ChecklistApp;
+			productName = ChecklistApp;
+			productReference = 1A2B3C4D5E6F000000000007 /* ChecklistApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+		F7DD117C2F38D9B2007C099D /* ChecklistWatch Watch App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F7DD11882F38D9B2007C099D /* Build configuration list for PBXNativeTarget "ChecklistWatch Watch App" */;
+			buildPhases = (
+				F7DD11792F38D9B2007C099D /* Sources */,
+				F7DD117A2F38D9B2007C099D /* Frameworks */,
+				F7DD117B2F38D9B2007C099D /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = ChecklistApp;
-			productName = ChecklistApp;
-			productReference = 1A2B3C4D5E6F000000000007 /* ChecklistApp.app */;
+			name = "ChecklistWatch Watch App";
+			packageProductDependencies = (
+			);
+			productName = "ChecklistWatch Watch App";
+			productReference = F7DD117D2F38D9B2007C099D /* ChecklistWatch Watch App.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -136,11 +196,14 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastSwiftUpdateCheck = 1500;
+				LastSwiftUpdateCheck = 2620;
 				LastUpgradeCheck = 1640;
 				TargetAttributes = {
 					1A2B3C4D5E6F000000000002 = {
 						CreatedOnToolsVersion = 15.0;
+					};
+					F7DD117C2F38D9B2007C099D = {
+						CreatedOnToolsVersion = 26.2;
 					};
 				};
 			};
@@ -158,6 +221,7 @@
 			projectRoot = "";
 			targets = (
 				1A2B3C4D5E6F000000000002 /* ChecklistApp */,
+				F7DD117C2F38D9B2007C099D /* ChecklistWatch Watch App */,
 			);
 		};
 /* End PBXProject section */
@@ -170,6 +234,13 @@
 				1A2B3C4D5E6F000000000022 /* iOSApp/Assets.xcassets in Resources */,
 				A1F100000000000000000004 /* AppShortcuts.strings in Resources */,
 				A1F100000000000000000007 /* Localizable.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F7DD117B2F38D9B2007C099D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -193,7 +264,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F7DD11792F38D9B2007C099D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F7DD11862F38D9B2007C099D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F7DD117C2F38D9B2007C099D /* ChecklistWatch Watch App */;
+			targetProxy = F7DD11852F38D9B2007C099D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		A1F100000000000000000003 /* AppShortcuts.strings */ = {
@@ -347,6 +433,111 @@
 			};
 			name = Release;
 		};
+		F7DD11892F38D9B2007C099D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_PREVIEWS = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = ChecklistWatch;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.mkotamies.checklistapp;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mkotamies.checklistapp.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 26.2;
+			};
+			name = Debug;
+		};
+		F7DD118A2F38D9B2007C099D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_PREVIEWS = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = ChecklistWatch;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.mkotamies.checklistapp;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mkotamies.checklistapp.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 26.2;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -364,6 +555,15 @@
 			buildConfigurations = (
 				1A2B3C4D5E6F00000000000C /* Debug */,
 				1A2B3C4D5E6F00000000000D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		F7DD11882F38D9B2007C099D /* Build configuration list for PBXNativeTarget "ChecklistWatch Watch App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F7DD11892F38D9B2007C099D /* Debug */,
+				F7DD118A2F38D9B2007C099D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;

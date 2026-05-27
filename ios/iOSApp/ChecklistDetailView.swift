@@ -65,10 +65,12 @@ struct ChecklistDetailView: View {
                             if allChecked {
                                 Image(systemName: "checkmark.circle.fill")
                                     .foregroundColor(.green)
+                                    .transition(.scale.combined(with: .opacity))
                             }
                         }
                         .font(.subheadline)
                         .foregroundColor(.secondary)
+                        .animation(.spring(response: 0.28, dampingFraction: 0.82), value: allChecked)
                     }
                     // Pencil icon button on trailing side (rightmost)
                     ToolbarItem(placement: .navigationBarTrailing) {

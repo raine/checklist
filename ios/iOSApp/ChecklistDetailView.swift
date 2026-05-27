@@ -242,6 +242,7 @@ private struct ChecklistListView: View {
                 VStack {
                     Spacer()
                     QuickAddRow(text: $newFieldName, onCommit: addField)
+                        .fixedSize(horizontal: false, vertical: true)
                         .padding(.horizontal, 16)
                         .padding(.bottom, 12)
                 }

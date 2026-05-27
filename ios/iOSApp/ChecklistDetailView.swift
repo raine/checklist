@@ -60,30 +60,34 @@ struct ChecklistDetailView: View {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         let done = checkedCount
                         let total = list.wrappedValue.fields.count
-                        HStack(spacing: 4) {
-                            Text("\(done)/\(total)")
-                            Image(systemName: "checkmark.circle.fill")
-                                .foregroundColor(.green)
-                                .scaleEffect(allChecked ? 1 : 0.1)
-                                .opacity(allChecked ? 1 : 0)
-                        }
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
-                        .animation(.spring(response: 0.28, dampingFraction: 0.82), value: allChecked)
-                    }
-                    // Pencil icon button on trailing side (rightmost)
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Button(action: {
-                            withAnimation(.default) {
-                                if isEditing { dismissKeyboard() }
-                                editMode = isEditing ? .inactive : .active
+                        let counterText = "\(done)/\(total)"
+                        let counterWidth = CGFloat(counterText.count) * 8 + (allChecked ? 24 : 0)
+                        HStack(spacing: 22) {
+                            HStack(spacing: 4) {
+                                Text(counterText)
+                                if allChecked {
+                                    Image(systemName: "checkmark.circle.fill")
+                                        .foregroundColor(.green)
+                                        .transition(.scale.combined(with: .opacity))
+                                }
                             }
-                        }) {
-                            Image(systemName: isEditing ? "checkmark" : "pencil")
-                                .foregroundColor(AppTheme.navItemColor)
-                                .imageScale(.medium)
-                                .accessibilityLabel(isEditing ? "Done" : "Edit")
+                            .frame(width: counterWidth, alignment: .leading)
+                            .font(.subheadline)
+                            .foregroundColor(.secondary)
+
+                            Button(action: {
+                                withAnimation(.default) {
+                                    if isEditing { dismissKeyboard() }
+                                    editMode = isEditing ? .inactive : .active
+                                }
+                            }) {
+                                Image(systemName: isEditing ? "checkmark" : "pencil")
+                                    .foregroundColor(AppTheme.navItemColor)
+                                    .imageScale(.medium)
+                                    .accessibilityLabel(isEditing ? "Done" : "Edit")
+                            }
                         }
+                        .animation(.spring(response: 0.28, dampingFraction: 0.82), value: allChecked)
                     }
                 }
                 .environment(\.editMode, $editMode)

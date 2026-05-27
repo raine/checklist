@@ -187,9 +187,6 @@ private struct QuickAddRow: View {
             )
         }
         .tileStyle()
-        .listRowBackground(Color.clear)
-        .listRowSeparatorHiddenCompat()
-        .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
     }
 }
 
@@ -214,10 +211,6 @@ private struct ChecklistListView: View {
                 .ignoresSafeArea()
 
             List {
-                if !isEditing {
-                    QuickAddRow(text: $newFieldName, onCommit: addField)
-                }
-
                 ForEach($list.fields) { $field in
                     let fieldID = $field.wrappedValue.id
                     if isEditing {
@@ -242,7 +235,17 @@ private struct ChecklistListView: View {
             .simultaneousGesture(TapGesture().onEnded { dismissKeyboard() })
             .gesture(DragGesture().onChanged { _ in dismissKeyboard() })
             .padding(.top, 16)
+            .padding(.bottom, isEditing ? 0 : 88)
             .padding(.horizontal, isEditing ? 16 : 0)
+
+            if !isEditing {
+                VStack {
+                    Spacer()
+                    QuickAddRow(text: $newFieldName, onCommit: addField)
+                        .padding(.horizontal, 16)
+                        .padding(.bottom, 12)
+                }
+            }
         }
     }
 }

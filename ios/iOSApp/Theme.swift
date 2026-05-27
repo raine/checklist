@@ -136,13 +136,15 @@ struct TileToggleStyle: ToggleStyle {
             HStack(spacing: 12) {
                 Image(systemName: configuration.isOn ? "checkmark.circle.fill" : "circle")
                     .foregroundColor(AppTheme.tileText.opacity(configuration.isOn ? 1 : 0.35))
-                    .font(.system(size: 24))
-                    .frame(width: 26, height: 26, alignment: .center)
+                    .imageScale(.large)
 
                 configuration.label
                     .foregroundColor(AppTheme.tileText)
                     .font(.body)
+
+                Spacer()
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
             .contentShape(Rectangle())
         }
         .buttonStyle(.plain)

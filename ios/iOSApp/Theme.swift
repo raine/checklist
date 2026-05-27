@@ -136,7 +136,8 @@ struct TileToggleStyle: ToggleStyle {
             HStack(spacing: 12) {
                 Image(systemName: configuration.isOn ? "checkmark.circle.fill" : "circle")
                     .foregroundColor(AppTheme.tileText.opacity(configuration.isOn ? 1 : 0.35))
-                    .imageScale(.large)
+                    .font(.system(size: 24))
+                    .frame(width: 26, height: 26, alignment: .center)
 
                 configuration.label
                     .foregroundColor(AppTheme.tileText)

@@ -182,6 +182,7 @@ private struct QuickAddRow: View {
                 text: $text,
                 isFirstResponder: false,
                 placeholder: "Add new item",
+                shouldResignOnReturn: false,
                 onCommit: onCommit,
             )
         }
@@ -249,9 +250,11 @@ private struct ChecklistListView: View {
 private struct FocusableTextField: UIViewRepresentable {
     class Coordinator: NSObject, UITextFieldDelegate {
         var text: Binding<String>
+        var shouldResignOnReturn: Bool
         var onCommit: (() -> Void)?
-        init(text: Binding<String>, onCommit: (() -> Void)?) {
+        init(text: Binding<String>, shouldResignOnReturn: Bool, onCommit: (() -> Void)?) {
             self.text = text
+            self.shouldResignOnReturn = shouldResignOnReturn
             self.onCommit = onCommit
         }
 
@@ -260,7 +263,9 @@ private struct FocusableTextField: UIViewRepresentable {
         }
 
         func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-            textField.resignFirstResponder()
+            if shouldResignOnReturn {
+                textField.resignFirstResponder()
+            }
             onCommit?()
             return true
         }
@@ -273,6 +278,7 @@ private struct FocusableTextField: UIViewRepresentable {
     @Binding var text: String
     var isFirstResponder: Bool
     var placeholder: String = "Field name"
+    var shouldResignOnReturn: Bool = true
     var onCommit: (() -> Void)?
 
     func makeUIView(context: Context) -> UITextField {
@@ -286,14 +292,15 @@ private struct FocusableTextField: UIViewRepresentable {
         return tf
     }
 
-    func updateUIView(_ uiView: UITextField, context _: Context) {
+    func updateUIView(_ uiView: UITextField, context: Context) {
         if uiView.text != text { uiView.text = text }
         if isFirstResponder, !uiView.isFirstResponder {
             uiView.becomeFirstResponder()
         }
+        context.coordinator.shouldResignOnReturn = shouldResignOnReturn
     }
 
     func makeCoordinator() -> Coordinator {
-        Coordinator(text: $text, onCommit: onCommit)
+        Coordinator(text: $text, shouldResignOnReturn: shouldResignOnReturn, onCommit: onCommit)
     }
 }

@@ -6,9 +6,7 @@ struct ChecklistDetailView: View {
     let listID: UUID
 
     @State private var newFieldName: String = ""
-    @State private var showCompletedAlert: Bool = false
     @State private var editMode: EditMode = .inactive
-    @State private var lastCheckedCount: Int = 0
 
     private var isEditing: Bool { editMode.isEditing }
 
@@ -62,9 +60,15 @@ struct ChecklistDetailView: View {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         let done = checkedCount
                         let total = list.wrappedValue.fields.count
-                        Text("\(done)/\(total)")
-                            .font(.subheadline)
-                            .foregroundColor(.secondary)
+                        HStack(spacing: 4) {
+                            Text("\(done)/\(total)")
+                            if allChecked {
+                                Image(systemName: "checkmark.circle.fill")
+                                    .foregroundColor(.green)
+                            }
+                        }
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
                     }
                     // Pencil icon button on trailing side (rightmost)
                     ToolbarItem(placement: .navigationBarTrailing) {
@@ -80,20 +84,6 @@ struct ChecklistDetailView: View {
                                 .accessibilityLabel(isEditing ? "Done" : "Edit")
                         }
                     }
-                }
-                .alert(isPresented: Binding(get: { !isEditing && showCompletedAlert }, set: { showCompletedAlert = $0 })) {
-                    Alert(title: Text("Checklist Completed"), message: Text("All items are checked."), dismissButton: .default(Text("OK")))
-                }
-                .onAppear { lastCheckedCount = checkedCount }
-                .onChange(of: checkedCount) { _, newCount in
-                    // Only show when not editing and the number of checked items increased
-                    if !isEditing, allChecked, newCount > lastCheckedCount {
-                        showCompletedAlert = true
-                    }
-                    lastCheckedCount = newCount
-                }
-                .onChange(of: isEditing) { _, editing in
-                    if editing { showCompletedAlert = false }
                 }
                 .environment(\.editMode, $editMode)
 
@@ -158,12 +148,19 @@ private struct EditingFieldRow: View {
 
 private struct DisplayFieldRow: View {
     @Binding var field: Field
+    var onDelete: () -> Void
 
     var body: some View {
         Toggle(isOn: $field.isChecked) {
             Text(field.name)
         }
         .toggleStyle(TileToggleStyle())
+        .swipeActions(edge: .trailing) {
+            Button(role: .destructive, action: onDelete) {
+                Label("Delete", systemImage: "trash")
+            }
+            .tint(Color(hex: 0xD96D6D))
+        }
         .listRowBackground(Color.clear)
         .listRowSeparatorHiddenCompat()
         .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
@@ -228,7 +225,10 @@ private struct ChecklistListView: View {
                             onDelete: { deleteField(id: fieldID) },
                         )
                     } else {
-                        DisplayFieldRow(field: $field)
+                        DisplayFieldRow(
+                            field: $field,
+                            onDelete: { deleteField(id: fieldID) },
+                        )
                     }
                 }
                 .onMove { from, to in

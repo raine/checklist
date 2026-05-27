@@ -62,11 +62,10 @@ struct ChecklistDetailView: View {
                         let total = list.wrappedValue.fields.count
                         HStack(spacing: 4) {
                             Text("\(done)/\(total)")
-                            if allChecked {
-                                Image(systemName: "checkmark.circle.fill")
-                                    .foregroundColor(.green)
-                                    .transition(.scale.combined(with: .opacity))
-                            }
+                            Image(systemName: "checkmark.circle.fill")
+                                .foregroundColor(.green)
+                                .scaleEffect(allChecked ? 1 : 0.1)
+                                .opacity(allChecked ? 1 : 0)
                         }
                         .font(.subheadline)
                         .foregroundColor(.secondary)

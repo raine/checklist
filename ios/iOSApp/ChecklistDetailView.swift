@@ -60,7 +60,7 @@ struct ChecklistDetailView: View {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         let done = checkedCount
                         let total = list.wrappedValue.fields.count
-                        HStack(spacing: 14) {
+                        HStack(spacing: 20) {
                             HStack(spacing: 4) {
                                 Text("\(done)/\(total)")
                                     .lineLimit(1)
@@ -87,6 +87,7 @@ struct ChecklistDetailView: View {
                                     .accessibilityLabel(isEditing ? "Done" : "Edit")
                             }
                         }
+                        .padding(.horizontal, 10)
                     }
                 }
                 .environment(\.editMode, $editMode)

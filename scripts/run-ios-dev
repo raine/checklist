@@ -1,0 +1,72 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+project_name="ios/ChecklistApp.xcodeproj"
+scheme_name="ChecklistApp"
+configuration="Debug"
+bundle_id="com.mkotamies.checklistapp"
+
+simulator_name="${1:-iPhone 17 Pro}"
+
+project_dir=$(git rev-parse --show-toplevel)
+cd "$project_dir" || exit 1
+
+if [[ ! -d "$project_name" ]]; then
+    echo "Error: Xcode project '$project_name' not found" >&2
+    exit 1
+fi
+
+simulator_udid=$(xcrun simctl list devices available -j | jq -r --arg name "$simulator_name" '.devices | to_entries[] | .value[] | select(.name == $name and .isAvailable == true) | .udid' | head -1)
+
+if [[ -z "$simulator_udid" ]]; then
+    echo "Error: Simulator '$simulator_name' not found. Available simulators:" >&2
+    xcrun simctl list devices available | grep -E "^\s+iPhone|^\s+iPad"
+    exit 1
+fi
+
+echo "Using simulator: $simulator_name ($simulator_udid)"
+
+DISABLE_CODE_SIGNING=${DISABLE_CODE_SIGNING:-1}
+if [[ "$DISABLE_CODE_SIGNING" =~ ^(1|true|TRUE|yes|YES)$ ]]; then
+    CS_FLAG=(CODE_SIGNING_ALLOWED=NO)
+else
+    CS_FLAG=()
+fi
+
+echo "Building $scheme_name for simulator..."
+if ! xcodebuild \
+    -project "$project_name" \
+    -scheme "$scheme_name" \
+    -configuration "$configuration" \
+    -sdk iphonesimulator \
+    -destination "platform=iOS Simulator,id=$simulator_udid" \
+    -derivedDataPath "$project_dir/build" \
+    "${CS_FLAG[@]}" \
+    -quiet \
+    build 2>&1; then
+    echo "Build failed" >&2
+    exit 1
+fi
+
+echo "Build completed"
+
+app_path="$project_dir/build/Build/Products/$configuration-iphonesimulator/$scheme_name.app"
+if [[ ! -d "$app_path" ]]; then
+    echo "Error: Built app not found at $app_path" >&2
+    exit 1
+fi
+
+sim_state=$(xcrun simctl list devices -j | jq -r --arg udid "$simulator_udid" '.devices | to_entries[] | .value[] | select(.udid == $udid) | .state')
+if [[ "$sim_state" != "Booted" ]]; then
+    echo "Booting simulator..."
+    xcrun simctl boot "$simulator_udid"
+    open -a Simulator
+    sleep 2
+fi
+
+echo "Installing app..."
+xcrun simctl install "$simulator_udid" "$app_path"
+
+echo "Launching app..."
+xcrun simctl launch --console-pty "$simulator_udid" "$bundle_id"

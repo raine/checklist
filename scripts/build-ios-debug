@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+project_name="ios/ChecklistApp.xcodeproj"
+scheme_name="ChecklistApp"
+configuration="Debug"
+
+project_dir=$(git rev-parse --show-toplevel)
+cd "$project_dir" || exit 1
+
+if [[ ! -d "$project_name" ]]; then
+    echo "Error: Xcode project '$project_name' not found" >&2
+    exit 1
+fi
+
+echo "Building $scheme_name scheme in $configuration configuration..."
+
+if xcodebuild \
+    -project "$project_name" \
+    -scheme "$scheme_name" \
+    -configuration "$configuration" \
+    -destination "generic/platform=iOS" \
+    -derivedDataPath "$project_dir/build/device" \
+    -quiet \
+    build 2>&1; then
+    echo "Build completed successfully"
+    exit 0
+else
+    build_exit_code=$?
+    echo "Build failed with exit code $build_exit_code" >&2
+    exit $build_exit_code
+fi

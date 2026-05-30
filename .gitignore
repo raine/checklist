@@ -4,6 +4,7 @@
 
 # Xcode-related (if generated locally)
 DerivedData/
+build/
 /*.xcodeproj
 !ChecklistApp.xcodeproj
 xcuserdata/

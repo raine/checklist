@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+project_name="ios/ChecklistApp.xcodeproj"
+scheme_name="ChecklistApp"
+configuration="Debug"
+bundle_id="com.mkotamies.checklistapp"
+
+project_dir=$(git rev-parse --show-toplevel)
+cd "$project_dir" || exit 1
+
+if [[ ! -d "$project_name" ]]; then
+    echo "Error: Xcode project '$project_name' not found" >&2
+    exit 1
+fi
+
+device_info=$(xcrun xctrace list devices 2>&1 | sed -n '/== Devices ==/,/== Simulators ==/p' | grep -v "==" | grep -vi "Mac" | grep -vi "Watch" | head -1)
+
+if [[ -z "$device_info" ]]; then
+    echo "Error: No iOS device connected. Connect your device and trust this computer." >&2
+    exit 1
+fi
+
+device_udid=$(echo "$device_info" | grep -oE '\([^)]+\)$' | tr -d '()')
+device_name=$(echo "$device_info" | sed 's/ ([^)]*) ([^)]*)$//')
+
+echo "Using device: $device_name ($device_udid)"
+
+echo "Building $scheme_name for device..."
+if ! xcodebuild \
+    -project "$project_name" \
+    -scheme "$scheme_name" \
+    -configuration "$configuration" \
+    -destination "platform=iOS,id=$device_udid" \
+    -derivedDataPath "$project_dir/build" \
+    -quiet \
+    build 2>&1; then
+    echo "Build failed" >&2
+    exit 1
+fi
+
+echo "Build completed"
+
+app_path=$(find "$project_dir/build/Build/Products/$configuration-iphoneos" -name "*.app" -type d 2>/dev/null | head -1)
+if [[ -z "$app_path" || ! -d "$app_path" ]]; then
+    echo "Error: Built app not found" >&2
+    exit 1
+fi
+
+echo "Installing app..."
+xcrun devicectl device install app --device "$device_name" "$app_path"
+
+echo "Launching app..."
+xcrun devicectl device process launch --device "$device_name" "$bundle_id"
+
+echo "App launched on $device_name"
